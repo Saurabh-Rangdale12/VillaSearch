@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function SignUp() {
 
   const [error, setError] = useState(null);  
   const [formData, setFormData] = useState({})
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData(
@@ -39,8 +40,9 @@ export default function SignUp() {
           return;
         }
         setLoading(false);
-        console.log(data);
-      
+        // console.log(data);
+        setError(null);
+        navigate('/sign-in');      
     } catch (error) {
       setLoading(false)
       setError(error.message)
@@ -62,6 +64,7 @@ export default function SignUp() {
           <span className='text-blue-700'>Sign In</span>
         </Link>
       </div>
+      {error && <p className='text-red-500 mt-5'>{error}</p>}
     </div>
   )
 }
